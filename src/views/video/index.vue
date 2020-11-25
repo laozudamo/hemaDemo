@@ -1,12 +1,12 @@
 <template>
-  <div>
-    河马
+  <div video-container>
+  视频
   </div>
 </template>
 
 <script>
 export default {
-  name: 'indexView',
+  name: 'video', 
   components: {},
   props: {},
   data () {
