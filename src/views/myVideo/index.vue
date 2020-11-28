@@ -1,12 +1,12 @@
 <template>
-  <div video-container>
+  <div>
   视频
   </div>
 </template>
 
 <script>
 export default {
-  name: 'video', 
+  name: 'myVideo', 
   components: {},
   props: {},
   data () {

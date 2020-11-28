@@ -7,7 +7,7 @@
         <van-tabbar-item icon="wap-home-o" replace to="/">
           首页
         </van-tabbar-item>
-        <van-tabbar-item icon="video-o" replace to="/video">
+        <van-tabbar-item icon="video-o" replace to="/myVideo">
         视频
         </van-tabbar-item>
         <van-tabbar-item icon="chat-o" badge="9" replace to="/qa">
@@ -30,7 +30,7 @@ export default {
   props: {},
   data () {
     return {
-      ctive: 0
+     active: 3
     }
   },
   computed: {},

@@ -24,9 +24,9 @@ const routes = [
         component: () => import('@/views/qa/index.vue')
       },
       {
-        path: '/video',
-        name: 'video',
-        component: () => import('@/views/video/index.vue')
+        path: '/myVideo',
+        name: 'myVideo',
+        component: () => import('@/views/myVideo/index.vue')
       },
       {
         path: '/my',
