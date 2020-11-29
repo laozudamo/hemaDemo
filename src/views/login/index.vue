@@ -69,7 +69,7 @@ export default {
     return {
       /* 用户数据 */
       user: {
-        mobile: '15681311971',
+        mobile: '17090086870',
         code: '246810'
       },
       /* 表单规则 */
@@ -109,7 +109,6 @@ export default {
       /* 将后端返回的数据放到vueX里面 */
       const data = res.data.data
       this.$store.commit('setUser',data)
-
       this.$toast('登录成功')
 
       this.$router.push('/my')
