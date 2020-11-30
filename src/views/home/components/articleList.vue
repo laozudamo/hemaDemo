@@ -8,11 +8,16 @@
 
     <van-list
       v-model="loading"
-      :finished="finished"
       finished-text="没有更多了"
+      :finished="finished"
       @load="onLoad"
     >
-      <van-cell v-for="(article,index) in articles" :key="index" :title="article.title" />
+      <van-cell
+      v-for="(article,index) in articles"
+      :key="index"
+      :title="article.title"
+      />
+
     </van-list>
 
     </van-pull-refresh>

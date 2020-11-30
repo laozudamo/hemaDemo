@@ -43,7 +43,12 @@
         >
         获取验证码
         </van-button>
-        <van-count-down :time="time" v-if="showCountDown"  format="ss s" @finish="stopShowCount" />
+        <van-count-down
+          :time="time"
+          @finish="stopShowCount"
+          v-if="showCountDown"
+          format="ss s"
+        />
       </template>
 
       </van-field>

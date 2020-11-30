@@ -3,12 +3,35 @@
     <div class="user-info">
       <van-cell-group v-if="user" class="my-head">
 
-        <van-cell title="单元格" value="内容" center class="my-info" :border="false">
+        <van-cell
+          :border="false"
+          title="单元格"
+          value="内容"
+          center class="my-info"
+        >
           <div slot="icon">
-            <van-image fit="cover" round :src="owner.photo" class="avatar" />
+
+            <van-image
+              fit="cover"
+              round
+              class="avatar"
+              :src="owner.photo"
+            />
+
           </div>
-          <div slot="title" class="nickName">{{owner.name}}</div>
-          <span slot="default" class="upDateUserFile">编辑资料</span>
+
+          <div slot="title" class="nickName">
+            {{owner.name}}
+          </div>
+
+          <van-button
+            type="warning"
+            slot="default"
+            class="upDateUserFile"
+            @click="$router.push('/userProfile')"
+          >
+          编辑资料
+          </van-button>
         </van-cell>
 
         <van-grid :border="false" class="data-info">
@@ -28,10 +51,12 @@
       </van-cell-group>
 
       <div class="not-login" v-else>
+
         <div class="not-login-inbox" @click="$router.push('login')">
           <van-image round src="https://img.yzcdn.cn/vant/cat.jpeg" class="not-login-img" />
           <span class="log-out">登录/注册</span>
         </div>
+        
       </div>
 
       <van-grid :column-num="2" class="grid-nav">
@@ -105,7 +130,7 @@ export default {
         // on cancel
       });
       /* 清除user */
-    }
+    },
   }
 }
 </script>

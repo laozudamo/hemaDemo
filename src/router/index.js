@@ -26,7 +26,7 @@ const routes = [
       {
         path: '/myVideo',
         name: 'myVideo',
-        component: () => import('@/views/myVideo/index.vue')
+        component: () => import('@/views/myvideo/index.vue')
       },
       {
         path: '/my',
@@ -34,6 +34,11 @@ const routes = [
         component: () => import('@/views/my/index.vue') 
       },
     ]
+  },
+  {
+    path: '/userProfile',
+    name: 'userProfile',
+    component: () => import('@/views/userprofile/index.vue')
   }
 
 ]
