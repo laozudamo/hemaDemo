@@ -30,7 +30,7 @@ export default {
   props: {},
   data () {
     return {
-     active: 3
+     active: null
     }
   },
   computed: {},
@@ -42,5 +42,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.van-tabbar-item--active {
+    color: rgb(216, 98, 98);
+    background-color: #fff;
+}
 </style>

@@ -5,31 +5,30 @@
       @refresh="onRefresh"
       success-text="刷新成功"
     >
-
     <van-list
       v-model="loading"
       finished-text="没有更多了"
       :finished="finished"
       @load="onLoad"
     >
-      <van-cell
+      <article-item
       v-for="(article,index) in articles"
       :key="index"
-      :title="article.title"
+      :article="article"
       />
-
     </van-list>
-
     </van-pull-refresh>
-
   </div>
 </template>
 
 <script>
+import ArticleItem from '@/components/article-item'
 import { getRecomendArticles } from '@/api/articles.js'
 export default {
   name: 'articleList', 
-  components: {},
+  components: {
+    ArticleItem
+  },
   props: {
     channel: {
       type: Object,

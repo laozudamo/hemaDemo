@@ -10,6 +10,8 @@ import 'vant/lib/index.css'
 
 import 'amfe-flexible'
 
+import '@/utils/dayjs'
+
 import '@/styles/index.less'
 
 /* 放到最后有利于覆盖样式 */
