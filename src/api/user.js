@@ -34,3 +34,13 @@ export const loadUserChannels = () =>{
     url: '/app/v1_0/user/channels'
   })
 }
+
+/* 修改用户频道列表 */
+/* wo TM 人傻了 data 位置放到外面了 注意注意 无论是方法还是data 还是请求 注意不要放错了地儿 */
+export const addUserChannel = data => {
+  return request({
+    method: 'PATCH',
+    url: '/app/v1_0/user/channels',
+    data
+  })
+}

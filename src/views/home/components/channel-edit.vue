@@ -75,6 +75,8 @@
 
 <script>
 import { getAllchannels } from '@/api/channels.js'
+import {addUserChannel} from '@/api/user.js'
+import { setItem,getItem } from '@/utils/storage.js'
 export default {
   name: 'ChannelEdit', 
   components: {},
@@ -122,8 +124,24 @@ export default {
       this.allChannels = data.data.channels
     },
 
-    onAdd (channel) {
+    async onAdd (channel) {
       this.userChannels.push(channel)
+      let user = getItem('user')
+      if (user) {
+        // 存线上
+        try {
+           await addUserChannel({
+            channels:[
+              {id:channel.id, seq:this.userChannels.length }
+            ]
+          })
+        } catch(err) {
+          console.dir(err);
+        }
+      } else {
+        // 存本地
+        setItem('user-channels',this.userChannels)
+      }
     },
 
     editChannel (index) {
