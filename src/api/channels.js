@@ -1,5 +1,4 @@
-
-import request from '@/utils/request'
+import request from '@/utils/request.js'
 
 /* 获取全部频道 */
 export const getAllchannels = () => {

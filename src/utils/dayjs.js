@@ -20,6 +20,3 @@ dayjs.locale('zh-cn') // 全局使用
 Vue.filter('relativeTime',value => {
   return dayjs(value).fromNow()
 })
-
-dayjs().format('YYYY-MM-DD HH:mm:ss'); 
-console.log(dayjs('2020-12-21 14:32').from(dayjs()));

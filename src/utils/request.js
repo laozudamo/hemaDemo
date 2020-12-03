@@ -15,9 +15,8 @@ const request = axios.create({
       console.log(err,'处理大整数错误')
       return data
     }
-  }],
+  }]
 
-  
 })
 
 

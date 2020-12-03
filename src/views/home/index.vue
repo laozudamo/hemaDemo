@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <!-- search -->
-    <div class="serch">
+    <div class="serch" @click="$router.push('/search')">
         <van-search
         v-model="value"
         shape="round"
@@ -50,6 +50,8 @@
 import {loadUserChannels} from '@/api/user.js'
 import ArticleList from './components/articleList.vue'
 import ChannelEdit from './components/channel-edit.vue'
+import { mapState} from 'vuex'
+import { getItem } from '@/utils/storage.js'
 export default {
   name: 'home', 
   components: {
@@ -65,7 +67,9 @@ export default {
        isChannelEditShow: false // 编辑频道显示状态
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['user'])
+  },
   watch: {},
   created () {
     this.loadChannels()
@@ -73,9 +77,28 @@ export default {
   mounted () {},
   methods: {
     async loadChannels() {
-      const {data} = await loadUserChannels()
-      this.channels = data.data.channels
+      let channels = []
+      if(this.user) {
+        const { data } = await loadUserChannels()
+        channels = data.data.channels
+        // 已登录获取用户线上的数据
+      } else {
+        // 未登录 
+        // 判断本地存储是否有数据 有 展示本地存储的数据
+        // 没有获取推荐频道数据
+        const localChannels = getItem('user-channels')
+        if(localChannels) {
+
+          channels = localChannels
+        } else {
+          const { data } = await loadUserChannels()
+          channels = data.data.channels
+        }
+      }
+      // 处理好的数据给到 data 里面
+      this.channels = channels
     },
+
     onShowPop() {
       this.isChannelEditShow=true
     },

@@ -9,6 +9,7 @@ const routes = [
     name: 'login',
     component: () => import('@/views/login/index.vue') 
   },
+
   {
     path: '',
     component: () => import('@/layout/index.vue'),
@@ -35,6 +36,13 @@ const routes = [
       },
     ]
   },
+    
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import ('@/views/search/index.vue')
+  },
+
   {
     path: '/userProfile',
     name: 'userProfile',

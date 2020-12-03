@@ -35,7 +35,7 @@
         :class="{ 'active' : onActive===index,'' : false}"
         v-for="(channel,index) in userChannels"
         :key="index"
-        @click="editChannel(index)"
+        @click="editChannel(channel,index)"
         
       >
       <van-icon name="clear" class="icon" v-if="isEdit && index!==0"/>
@@ -75,8 +75,8 @@
 
 <script>
 import { getAllchannels } from '@/api/channels.js'
-import {addUserChannel} from '@/api/user.js'
-import { setItem,getItem } from '@/utils/storage.js'
+import { addUserChannel,deleteUserChannel } from '@/api/user.js'
+import { setItem,getItem,removeItem } from '@/utils/storage.js'
 export default {
   name: 'ChannelEdit', 
   components: {},
@@ -120,7 +120,6 @@ export default {
   methods: {
     async loadAllchannels() {
       const { data } = await getAllchannels()
-      console.log(data);
       this.allChannels = data.data.channels
     },
 
@@ -144,25 +143,36 @@ export default {
       }
     },
 
-    editChannel (index) {
+    editChannel (channel,index) {
       if(this.isEdit && index !== 0) {
         // 删除频道
-        this.deleteChannel(index)
+        this.deleteChannel(channel,index)
       } else {
         // 进入频道
         this.goChannel(index)
       }
     },
 
-    deleteChannel(index) { // 删除频道 
-      if(index < this.onActive) {
-        // 更新激活频道索引
+    async deleteChannel(channel,index) { // 删除频道
+        if(index <= this.onActive) {
+          // 更新激活频道索引
         this.$emit('update-active',this.onActive-1)
-      } 
-      this.userChannels.splice(index,1)
-      // 数据持久化
-    },
+        }
+        // 接口删除频道
+        this.userChannels.splice(index,1)
 
+        let user = getItem('user')
+
+        if(user) {
+          // 登录，持久化到线上
+          await deleteUserChannel(channel.id)
+        } else {
+          // 没有登录 持久化到本地
+          setItem('user-channels',this.userChannels)
+        }
+
+     },
+    
     goChannel (index) { // 进入频道
       this.$emit('update-active',index)
       this.$emit('closePop')

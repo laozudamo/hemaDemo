@@ -61,7 +61,6 @@ export default {
       this.articles = [...this.articles,...results]
       /* this.articles.push(...results) */
       this.loading = false
-      console.log(data)
 
       /* 如果数据全部加载完 */
       if(results.length) {
@@ -80,10 +79,10 @@ export default {
       with_top: 1
     })
     
-    /* 往顶部追加数据 */
-    const { results } = data.data
-    this.articles.unshift(...results)
-    this.isRefreshLoading = false
+      /* 往顶部追加数据 */
+      const { results } = data.data
+      this.articles.unshift(...results)
+      this.isRefreshLoading = false
     }
   }
 }
