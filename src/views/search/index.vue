@@ -10,7 +10,6 @@
         @cancel="$router.back()"
         @search="onSearch"
         @input="onInput"
-     
       />
     </form>
 
@@ -22,12 +21,14 @@
     <!-- history -->
     <search-history
       v-else-if="searchText === ''"
+      @search="onSearch"
     />
 
     <!-- advice -->
     <search-advice
       v-else
       :advice="searchText"
+      @search="onSearch"
     />
 
     
@@ -35,11 +36,11 @@
 </template>
 
 <script>
-import { setItem } from '@/utils/storage.js'
 import SearchAdvice from './components/search-advice.vue'
 import SearchHistory from './components/search-history.vue'
 import SearchResults from './components/search-results.vue'
 
+import { setItem,getItem } from '@/utils/storage.js'
 import { mapState } from 'vuex'  // import mapState
 
 export default {
@@ -60,11 +61,14 @@ export default {
   created () {},
   mounted () {},
   methods: {
-    onSearch () {
+    onSearch (searchText) {
       /* 搜索 */
       this.isShowResults = true
+
+      this.searchText = searchText
       // 判断是否登录
-      if(!this.user) {
+      const user = getItem('user')
+      if(!user) {
         // 没有登录 存输入内容到本地
        this.keyWords.unshift(this.searchText) // 数组 起那面追加
         // 数组去重

@@ -51,3 +51,11 @@ export const deleteUserChannel = channelID => {
     url: `/app/v1_0/user/channels/${channelID}`,
   })
 }
+
+/* 删除用户历史 */
+export const deleteUserHistory = () => {
+  return request({
+    method: 'DELETE',
+    url: '/app/v1_0/search/histories'
+  })
+}

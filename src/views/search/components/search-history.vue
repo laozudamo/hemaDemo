@@ -5,15 +5,31 @@
     <van-cell
       title="历史记录"
     >
+    <!-- icon -->
+      <div
+        slot="right-icon"
+        @click="isShowIcon = !isShowIcon"
+        v-if="isShowIcon"
+      >
+        <van-icon name="delete" class="delete-history"/>
+      </div>
+    <!-- text -->
+      <div
+        slot="right-icon"
+        v-else
+      >
+        <span class="allDelete" @click="allClear">
+          全部删除
+        </span>
 
-    <div slot="right-icon" v-if="true">
-      <van-icon name="delete" class="delete-history"/>
-    </div>
-    <div slot="right-icon" v-if="false">
-      <span>全部删除</span>
-      &nbsp;&nbsp;
-      <span>完成</span>
-    </div>
+        <span
+          class="done"
+          @click="isShowIcon = !isShowIcon
+        ">
+          完成
+        </span>
+
+      </div>
 
     </van-cell>
 
@@ -21,12 +37,17 @@
     <van-cell
       v-for="(keyword,index) in keywords"
       :key="index"
+      @click="onClick(keyword)"
     >
       <div slot="title">
         {{keyword}}
       </div>
-      <div slot="right-icon" >
-        <van-icon name="close" class="clear-history" />
+      <div slot="right-icon">
+        <van-icon
+          name="close"
+          class="clear-history"
+          v-show="!isShowIcon"
+        />
       </div>
 
     </van-cell>
@@ -35,7 +56,8 @@
 </template>
 
 <script>
-import { getItem } from '@/utils/storage.js'
+import { deleteUserHistory } from '@/api/user.js'
+import { getItem,removeItem } from '@/utils/storage.js'
 import { getSearchHistory } from '@/api/search.js'
 import { mapState } from 'vuex'
 export default {
@@ -44,7 +66,8 @@ export default {
   props: {},
   data () {
     return {
-      keywords: []
+      keywords: [],
+      isShowIcon: true,
     }
   },
   computed: {
@@ -74,6 +97,45 @@ export default {
     loadLocalHistory() {
       this.keywords = getItem('keyWords')
     },
+
+    onClick (keyword) {
+      // 判断 isShowIcon 状态
+      if (this.isShowIcon) {
+         // keyWord 进行搜索操作
+         this.$emit('search',keyword)
+      } else {
+         // 删除历史
+          if(this.user) {
+            this.deleteUserHistory(keyword)
+          } else {
+            this.deleteLocalHistory(keyword)
+          }
+      }
+    },
+
+    // 删除用户历史
+    async deleteUserHistory (keyword) {
+      console.log(keyword);
+      /* await deleteUserHistory() */
+      console.log('删除用户历史')
+    },
+
+    // 删除本地历史
+    async deleteLocalHistory (keyword) {
+      console.log(keyword);
+      console.log('删除本地历史')
+    },
+
+    // 全部删除 
+    allClear() {
+      // 判断有没有用户
+
+      // 有 
+      // 删除用户全部
+
+      // no 
+      // 删除本地全部
+    }
   }
 }
 </script>
@@ -83,5 +145,22 @@ export default {
   color: #333;
   font-size: 18px;
   line-height: 25px;
+}
+
+.done {
+  padding: 2px;
+  font-size: 13px;
+  color: #333;
+}
+
+.allDelete {
+  font-size: 13px;
+  margin-right: 6px;
+  padding: 2px;
+  color: #333;
+}
+
+.clear-history {
+  color: #d5505f;
 }
 </style>
