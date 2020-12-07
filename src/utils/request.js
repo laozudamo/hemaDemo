@@ -4,7 +4,7 @@ import store from '@/store'
 import JSONbig from 'json-bigint'
 
 const request = axios.create({
-  baseURL: 'http://ttapi.research.itcast.cn/', // 基础路径
+  baseURL: 'http://localhost:8080/', // 基础路径
 
   /* 大整数处理 */
   transformResponse: [function (data) {

@@ -37,7 +37,7 @@
     <van-cell
       v-for="(keyword,index) in keywords"
       :key="index"
-      @click="onClick(keyword)"
+      @click="onClick(keyword,index)"
     >
       <div slot="title">
         {{keyword}}
@@ -57,7 +57,7 @@
 
 <script>
 import { deleteUserHistory } from '@/api/user.js'
-import { getItem,removeItem } from '@/utils/storage.js'
+import { getItem,setItem,removeItem } from '@/utils/storage.js'
 import { getSearchHistory } from '@/api/search.js'
 import { mapState } from 'vuex'
 export default {
@@ -79,10 +79,9 @@ export default {
       this.loadSearchHistory()
     } else {
       // 查看本地有没有
-      const localHistory = getItem('keyWords')
+      const localHistory = getItem('keyHistory')
       if(localHistory) {
         this.loadLocalHistory()
-
       } 
     }
   },
@@ -95,10 +94,10 @@ export default {
     },
     // local history
     loadLocalHistory() {
-      this.keywords = getItem('keyWords')
+      this.keywords = getItem('keyHistory')
     },
 
-    onClick (keyword) {
+    onClick (keyword,index) {
       // 判断 isShowIcon 状态
       if (this.isShowIcon) {
          // keyWord 进行搜索操作
@@ -108,33 +107,33 @@ export default {
           if(this.user) {
             this.deleteUserHistory(keyword)
           } else {
-            this.deleteLocalHistory(keyword)
+            this.deleteLocalHistory(keyword,index)
           }
       }
     },
 
     // 删除用户历史
-    async deleteUserHistory (keyword) {
-      console.log(keyword);
-      /* await deleteUserHistory() */
+    deleteUserHistory (keyword) {
       console.log('删除用户历史')
     },
 
     // 删除本地历史
-    async deleteLocalHistory (keyword) {
-      console.log(keyword);
-      console.log('删除本地历史')
+    async deleteLocalHistory (keyword,index) {
+      this.keywords.splice(index,1)
+      setItem('keyHistory', this.keywords)
     },
 
     // 全部删除 
-    allClear() {
+    async allClear() {
       // 判断有没有用户
-
-      // 有 
-      // 删除用户全部
-
-      // no 
-      // 删除本地全部
+      if(this.user){
+        // you
+        this.keywords= []
+        await deleteUserHistory()
+      } else {
+        this.keywords= []
+        removeItem('keyHistory')
+      }
     }
   }
 }

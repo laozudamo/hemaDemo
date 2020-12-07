@@ -70,9 +70,11 @@ export default {
       const user = getItem('user')
       if(!user) {
         // 没有登录 存输入内容到本地
-       this.keyWords.unshift(this.searchText) // 数组 起那面追加
-        // 数组去重
-        setItem('keyWords', this.keyWords)
+        //  this.keyWords.unshift(this.searchText) // 数组 前面追加
+        this.keyWords.unshift(this.searchText) 
+
+        let setHistory = Array.from(new Set (this.keyWords)) // 数组去重
+        setItem('keyHistory', setHistory)
       }
       
     },

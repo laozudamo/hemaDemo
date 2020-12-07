@@ -72,7 +72,7 @@
 
       <div class="link-wrap">
         <van-cell title="消息通知" is-link to="" v-if="user" />
-        <van-cell title="小智同学" is-link to="" />
+        <van-cell title="小智同学" is-link to="/chat"/>
       </div>
 
       <van-cell title="退出登录" class="loginOutBtn" v-if="user" @click="onLogout" />

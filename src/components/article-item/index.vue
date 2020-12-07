@@ -1,5 +1,13 @@
 <template>
-  <van-cell>
+<!-- 路由传参 -->
+  <van-cell
+    :to="{
+      name:'article',
+      params: {
+        articleId:article.art_id
+      }
+    }"
+  >
     <div slot="title" class="article-title van-ellipsis">{{article.title}} </div>
     <div slot="label" v-if="article.cover.images.length <= 1" class="no-threeimg"></div>
     <div slot="label">
@@ -34,7 +42,7 @@
 
 <script>
 export default {
-  name: 'ArticleItem', 
+  name: 'article', 
   components: {},
   props: {
     article:{
@@ -57,6 +65,10 @@ export default {
 .article-title {
   font-size: 14px;
   color: #3a3a3a;
+}
+
+.van-cell__value {
+  text-overflow: ellipsis;
 }
 /deep/.van-cell__value {
   flex: unset;

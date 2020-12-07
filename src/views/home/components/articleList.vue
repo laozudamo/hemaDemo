@@ -84,6 +84,7 @@ export default {
       this.articles.unshift(...results)
       this.isRefreshLoading = false
     }
+
   }
 }
 </script>

@@ -59,3 +59,47 @@ export const deleteUserHistory = () => {
     url: '/app/v1_0/search/histories'
   })
 }
+
+/* 关注用户 */
+export const followUser = followUserId =>{
+  return request({
+    method: 'POST',
+    url: '/app/v1_0/user/followings',
+    data: {
+      target: followUserId
+    }
+  })
+}
+
+/* 取消关注用户 */
+export const cancelFollowUser = userId => {
+  return request({
+    method: 'DELETE',
+    url: `/app/v1_0/user/followings/${userId}`
+  })
+}
+
+/* 修改用户资料 */
+export const editUserProfile = data => {
+  return request({
+    method: 'PATCH',
+    url: '/app/v1_0/user/profile',
+    data
+  })
+}
+/* 照片 */
+export const editUserPhoto = data => {
+  return request({
+    method: 'PATCH',
+    url: '/app/v1_0/user/photo',
+    data
+  })
+}
+
+/* 租户 */
+export const getUserProfile = () => {
+  return request({
+    method: 'GET',
+    url: '/app/v1_0/user/profile',
+  })
+}
