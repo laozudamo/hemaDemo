@@ -1,11 +1,12 @@
 <template>
-  <div class="articleList">
+  <div class="article-list" ref="article-list">
     <van-pull-refresh
       v-model="isRefreshLoading"
       @refresh="onRefresh"
       success-text="刷新成功"
     >
     <van-list
+      class="vanList"
       v-model="loading"
       finished-text="没有更多了"
       :finished="finished"
@@ -42,12 +43,22 @@ export default {
       finished: false,
       timestamp: null,
       isRefreshLoading: false,
+      scrollTop:0, // 列表滚动到顶部的距离
     }
   },
   computed: {},
   watch: {},
   created () {},
-  mounted () {},
+  mounted () {
+    const articleList = this.$refs['article-list']
+    articleList.onscroll =  () => {
+      this.scrollTop = articleList.scrollTop
+    }
+  },
+  activated () {
+    // 把记录的到顶部的距离重新设置回去
+    this.$refs['article-list'].scrollTop = this.scrollTop
+  }, 
   methods: {
     async onLoad() {
       /* 请求数据 */
@@ -90,7 +101,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.articleList {
+.article-list {
   position: fixed;
   top: 98px;
   bottom: 50px;
