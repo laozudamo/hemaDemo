@@ -42,7 +42,7 @@
 
 <script>
 export default {
-  name: 'article', 
+  name: 'articles', 
   components: {},
   props: {
     article:{

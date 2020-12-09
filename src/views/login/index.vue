@@ -114,9 +114,14 @@ export default {
       /* 将后端返回的数据放到vueX里面 */
       const data = res.data.data
       this.$store.commit('setUser',data)
+
+      /* 清除缓存页面 */
+      this.$store.commit('removeCachePage','layout')
+
       this.$toast('登录成功')
 
-      this.$router.push('/my')
+      /* this.$router.push('/my') */
+      this.$router.push(this.$route.query.redirect || '/')
 
       } catch(err) {
         this.$toast.fail('账号或验证码错误')

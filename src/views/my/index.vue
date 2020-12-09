@@ -52,7 +52,15 @@
 
       <div class="not-login" v-else>
 
-        <div class="not-login-inbox" @click="$router.push('login')">
+        <div
+          class="not-login-inbox"
+          @click="$router.push({
+            name: 'login',
+            query: {
+              redirect: '/my'
+            }
+          })"
+        >
           <van-image round src="https://img.yzcdn.cn/vant/cat.jpeg" class="not-login-img" />
           <span class="log-out">登录/注册</span>
         </div>
@@ -126,10 +134,6 @@ export default {
         /* 清除用户登陆状态 */
         this.$store.commit('setUser',null)
       })
-      .catch(() => {
-        // on cancel
-      });
-      /* 清除user */
     },
   }
 }
