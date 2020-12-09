@@ -25,6 +25,7 @@
 <script>
 import ArticleItem from '@/components/article-item'
 import { getRecomendArticles } from '@/api/articles.js'
+import {debounce} from 'lodash'
 export default {
   name: 'articleList', 
   components: {
@@ -51,9 +52,9 @@ export default {
   created () {},
   mounted () {
     const articleList = this.$refs['article-list']
-    articleList.onscroll =  () => {
+    articleList.onscroll = debounce( () => {
       this.scrollTop = articleList.scrollTop
-    }
+    },50)
   },
   activated () {
     // 把记录的到顶部的距离重新设置回去
